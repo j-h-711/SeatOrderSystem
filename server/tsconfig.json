@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
+    "rootDir": "./src" // 추가: 소스 파일의 루트 디렉토리 설정
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}

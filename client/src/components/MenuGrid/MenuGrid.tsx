@@ -1,33 +1,40 @@
 import React from "react";
+import * as S from "./styles";
 
-interface Menu {
-  id: number;
+interface MenuItem {
+  _id: string;
   name: string;
   price: number;
   category: string;
   description: string;
+  image?: string;
 }
 
+// MenuGridProps 정의
 interface MenuGridProps {
-  menus: Menu[];
-  onSelectMenu: (food: Menu) => void;
+  menus: MenuItem[];
+  onMenuSelect: (menu: MenuItem) => void;
 }
 
-const MenuGrid: React.FC<MenuGridProps> = ({ menus, onSelectMenu }) => {
+const MenuGrid: React.FC<MenuGridProps> = ({ menus, onMenuSelect }) => {
+  // console.log(menus);
   return (
-    <div className="food-grid">
+    <S.Container>
       {menus.map((menu) => (
-        <div
-          key={menu.id}
-          className="food-item"
-          onClick={() => onSelectMenu(menu)}
-        >
-          {/* <img src={food.imageUrl} alt={food.name} /> */}
-          <h3>{menu.name}</h3>
-          <p>{menu.price}원</p>
-        </div>
+        <S.GirdItem key={menu._id} onClick={() => onMenuSelect(menu)}>
+          {menu.image ? (
+            <S.Image src={menu.image} alt={menu.name} />
+          ) : (
+            <S.NoImage src="/exmenu.jpg"></S.NoImage>
+          )}
+
+          <S.MenuDisc>
+            <p>{menu.name}</p>
+            <p>{menu.price}</p>
+          </S.MenuDisc>
+        </S.GirdItem>
       ))}
-    </div>
+    </S.Container>
   );
 };
 

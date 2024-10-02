@@ -1,6 +1,7 @@
 import mongoose, { Document, Schema } from "mongoose";
 
 export interface IMenu extends Document {
+  _id: string;
   name: string;
   description: string;
   price: number;

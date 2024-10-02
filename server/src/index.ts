@@ -1,10 +1,13 @@
 import express from "express";
 import connectToDatabase from "./db";
+import cors from "cors";
 import menuRoutes from "./Routes/menuRoutes";
 import orderRoutes from "./Routes/orderRoutes";
 
 const app = express();
-const port = 8000;
+const port = process.env.REACT_APP_PORT || 8000;
+
+app.use(cors());
 
 app.use(express.json());
 

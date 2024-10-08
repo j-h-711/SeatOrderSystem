@@ -6,37 +6,42 @@ export const Container = styled.div`
   width: 90%;
   height: 100%;
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 가로 3개, 균등한 너비 */
-  grid-auto-rows: 400px; /* 콘텐츠에 맞게 행의 높이 조정 */
-  gap: 30px; /* 그리드 아이템 사이의 간격 (선택 사항) */
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 300px;
+  gap: 30px;
 `;
 
 export const GirdItem = styled.div`
   background-color: none;
   height: 100%;
   border-radius: 10px;
-  border: 1px solid white;
+  border: 1px;
   cursor: pointer;
-  overflow: hidden; /* 이미지가 경계 넘어감 해결 */
+  overflow: hidden;
 `;
 
 export const Image = styled.img`
   width: 100%;
-  height: 70%; /* 원하는 높이로 설정 */
-  object-fit: cover; /* 이미지 비율 유지 */
+  height: 70%;
+  object-fit: cover;
   border-bottom: 1px solid #ddd;
 `;
 
 export const NoImage = styled.img`
   width: 100%;
-  height: 70%; /* 원하는 높이로 설정 */
-  object-fit: cover; /* 이미지 비율 유지 */
-  border-bottom: 1px solid #ddd;
+  height: 70%;
+  object-fit: cover;
 `;
 
 export const MenuDisc = styled.div`
   height: 30%;
   align-items: center;
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 
   p {
     color: white;

@@ -17,7 +17,6 @@ interface MenuGridProps {
 }
 
 const MenuGrid: React.FC<MenuGridProps> = ({ menus, onMenuSelect }) => {
-  // console.log(menus);
   return (
     <S.Container>
       {menus.map((menu) => (

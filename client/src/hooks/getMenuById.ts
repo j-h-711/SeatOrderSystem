@@ -8,7 +8,7 @@ const useGetMenuById = (id: string | undefined) => {
 
   useEffect(() => {
     if (id) {
-      // console.log(id); // 확인
+      // console.log(id);
       const fetchMenu = async () => {
         try {
           const response = await axios.get(

@@ -19,8 +19,8 @@ export const ModalContainer = styled.div`
   background-color: white;
   padding: 20px;
   border-radius: 10px;
-  width: 90%;
-  max-width: 500px;
+  width: 500px;
+  height: 70%;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 1001;
 `;
@@ -30,7 +30,7 @@ export const ModalHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  height: 10%;
 `;
 
 // 닫기 버튼 스타일
@@ -43,7 +43,7 @@ export const CloseButton = styled.button`
 
 // 모달 컨텐츠: 주문 내역 리스트와 가격 표시
 export const ModalContent = styled.div`
-  height: 300px;
+  height: 80%;
   overflow-y: auto;
 `;
 
@@ -51,7 +51,7 @@ export const ModalContent = styled.div`
 export const ModalFooter = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  height: 10%;
 `;
 
 // 버튼 스타일
@@ -59,7 +59,7 @@ export const Button = styled.button<{ primary?: boolean }>`
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
-  background-color: ${(props) => (props.primary ? "#429f50" : "#ccc")};
+  background-color: #429f50;
   color: white;
   cursor: pointer;
   font-size: 16px;

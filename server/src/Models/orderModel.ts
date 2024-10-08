@@ -3,7 +3,7 @@ import mongoose, { Document, Schema } from "mongoose";
 export interface IOrder extends Document {
   tableNumber: number;
   items: Array<{
-    menuId: string;
+    id: string;
     quantity: number;
   }>;
   status: string;
@@ -13,7 +13,7 @@ const orderSchema = new Schema<IOrder>({
   tableNumber: { type: Number, required: true },
   items: [
     {
-      menuId: { type: Schema.Types.ObjectId, ref: "Menu", required: true },
+      id: { type: Schema.Types.ObjectId, ref: "Menu", required: true },
       quantity: { type: Number, required: true },
     },
   ],

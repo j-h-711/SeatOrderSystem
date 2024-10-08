@@ -14,10 +14,15 @@ export const LoadingContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  background-color: #f8f9fa;
+  position: fixed; /* 전체 화면을 차지하도록 */
+  top: 0; /* 상단에서 시작 */
+  left: 0; /* 왼쪽에서 시작 */
+  width: 100vw; /* 전체 너비 */
+  height: 100vh; /* 전체 높이 */
+  background-color: rgba(248, 249, 250, 0.8); /* 반투명 배경색 */
   font-family: "Arial", sans-serif;
   color: #333;
+  z-index: 999; /* 다른 요소보다 위에 표시 */
 `;
 
 export const Loader = styled.div`

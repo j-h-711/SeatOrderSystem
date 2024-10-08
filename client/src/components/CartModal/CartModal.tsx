@@ -9,6 +9,7 @@ import {
   clearCart,
 } from "../../features/cart/cartSlice";
 import { addOrder } from "../../features/order/orderSlice";
+import usePostOrder from "../../hooks/postOrder";
 import Swal from "sweetalert2";
 import * as S from "./styles";
 
@@ -17,23 +18,27 @@ const CartPage: React.FC = () => {
   const dispatch = useDispatch();
   const location = useLocation();
 
+  const { postOrder, loading } = usePostOrder();
+
   // 장바구니 상태
   const cartItems = useSelector((state: RootState) => state.cart.items);
+  console.log(cartItems);
 
-  // 총 결제금액
+  // 임시 테이블번호
+  const tableNumber = 1;
+
   let totalPrice = 0;
   cartItems.forEach((item) => {
     totalPrice += item.price * item.quantity;
   });
 
+  // 장바구니 내 수량조절 및 제거
   const handleIncrease = (id: string) => {
     dispatch(increaseItemQuantity(id));
   };
-
   const handleDecrease = (id: string) => {
     dispatch(decreaseItemQuantity(id));
   };
-
   const handleRemove = (id: string) => {
     dispatch(removeItem(id));
   };
@@ -42,7 +47,7 @@ const CartPage: React.FC = () => {
     navigate(-1);
   };
 
-  const handleOrder = () => {
+  const handleOrder = async () => {
     if (cartItems.length < 1) {
       Swal.fire({
         icon: "error",
@@ -50,7 +55,7 @@ const CartPage: React.FC = () => {
         text: "주문을 원하시는 메뉴를 확인하세요",
       });
     } else {
-      Swal.fire({
+      const result = await Swal.fire({
         icon: "info",
         title: "주문을 진행하시겠습니까?",
         text: "주문을 완료하시려면 예를 눌러주세요.",
@@ -59,22 +64,37 @@ const CartPage: React.FC = () => {
         cancelButtonText: "아니오",
         confirmButtonColor: "#429f50",
         cancelButtonColor: "#d33",
-      }).then((result) => {
-        if (result.isConfirmed) {
+      });
+
+      if (result.isConfirmed) {
+        try {
+          await postOrder(cartItems, tableNumber); // 서버에 주문 요청
           dispatch(addOrder(cartItems));
           dispatch(clearCart());
-          // navigate를 setTimeout으로 비동기 처리하여 리렌더링 충돌 방지
+
           setTimeout(() => {
             navigate("/ordercheck", {
               state: { backgroundLocation: location },
             });
           }, 0);
-        } else if (result.isDismissed) {
-          setTimeout(() => {
-            navigate(-1);
-          }, 0);
+
+          Swal.fire({
+            icon: "success",
+            title: "결제가 완료되었습니다.",
+            text: "주문 내역을 확인해 주세요.",
+          });
+        } catch (error) {
+          Swal.fire({
+            icon: "error",
+            title: "결제 실패",
+            text: "결제 중 문제가 발생했습니다. 다시 시도해 주세요.",
+          });
         }
-      });
+      } else if (result.isDismissed) {
+        setTimeout(() => {
+          navigate(-1);
+        }, 0);
+      }
     }
   };
 
@@ -87,25 +107,51 @@ const CartPage: React.FC = () => {
             <S.CloseButton onClick={handleBack}>X</S.CloseButton>
           </S.ModalHeader>
 
-          {cartItems.length === 0 ? (
-            <p>장바구니가 비어 있습니다.</p>
-          ) : (
-            <S.CartList>
-              {cartItems.map((item) => (
-                <li key={item.id}>
-                  {item.name} - 가격: {item.price} - 수량: {item.quantity}
-                  <div>
-                    <button onClick={() => handleIncrease(item.id)}>+</button>
-                    <button onClick={() => handleDecrease(item.id)}>-</button>
-                    <button onClick={() => handleRemove(item.id)}>제거</button>
-                  </div>
-                </li>
-              ))}
-            </S.CartList>
-          )}
+          <S.MainArea>
+            {cartItems.length === 0 ? (
+              <p>장바구니가 비어 있습니다.</p>
+            ) : (
+              <S.CartList>
+                {cartItems.map((item) => (
+                  <li key={item.id}>
+                    {item.image ? (
+                      <S.Image src={item.image} alt={item.name} />
+                    ) : (
+                      <S.Image src="/exmenu.jpg"></S.Image>
+                    )}
 
-          <p>총 주문금액 : {totalPrice}</p>
-          <S.ModalButton onClick={handleOrder}>주문하기</S.ModalButton>
+                    <S.CartItemText>
+                      <S.MenuName>{item.name}</S.MenuName>
+                      <S.MenuPrice>{item.price} 원</S.MenuPrice>
+                    </S.CartItemText>
+
+                    <S.Quantity>
+                      <S.QuantityButton onClick={() => handleIncrease(item.id)}>
+                        +
+                      </S.QuantityButton>
+
+                      <div>
+                        <p>{item.quantity}</p>
+                      </div>
+
+                      <S.QuantityButton onClick={() => handleDecrease(item.id)}>
+                        -
+                      </S.QuantityButton>
+
+                      <S.DeleteButton onClick={() => handleRemove(item.id)}>
+                        x
+                      </S.DeleteButton>
+                    </S.Quantity>
+                  </li>
+                ))}
+              </S.CartList>
+            )}
+          </S.MainArea>
+
+          <S.ModalFooter>
+            <S.TotalPrice>총 주문금액 : {totalPrice} 원</S.TotalPrice>
+            <S.ModalButton onClick={handleOrder}>주문하기</S.ModalButton>
+          </S.ModalFooter>
         </S.ModalContent>
       </S.ModalContainer>
     </S.Overlay>

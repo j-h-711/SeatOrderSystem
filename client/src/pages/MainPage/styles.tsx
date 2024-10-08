@@ -11,7 +11,7 @@ export const Container = styled.div`
 export const MainContainer = styled.div`
   width: 100%;
   height: 100%;
-  overflow-y: auto; /* Enable scrolling for the container */
+  overflow-y: auto;
   max-height: 100%;
 `;
 

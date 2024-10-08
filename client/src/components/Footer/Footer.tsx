@@ -14,11 +14,19 @@ const Footer: React.FC = () => {
     navigate("/ordercheck", { state: { backgroundLocation: location } });
   };
 
+  const handleChat = () => {
+    navigate("/chat", { state: { backgroundLocation: location } });
+  };
+
   return (
     <S.Container>
-      <p>푸터</p>
-      <button onClick={handleCart}>장바구니</button>
-      <button onClick={handleOrderCheck}>주문내역</button>
+      <S.FooterChat>
+        <S.ChatButton onClick={handleChat}>직원과의 대화</S.ChatButton>
+      </S.FooterChat>
+      <S.ButtonContainer>
+        <S.FooterButton onClick={handleCart}>장바구니</S.FooterButton>
+        <S.FooterButton onClick={handleOrderCheck}>주문내역</S.FooterButton>
+      </S.ButtonContainer>
     </S.Container>
   );
 };

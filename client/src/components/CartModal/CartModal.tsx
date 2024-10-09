@@ -22,7 +22,7 @@ const CartPage: React.FC = () => {
 
   // 장바구니 상태
   const cartItems = useSelector((state: RootState) => state.cart.items);
-  console.log(cartItems);
+  // console.log(cartItems);
 
   // 임시 테이블번호
   const tableNumber = 1;

@@ -11,6 +11,7 @@ interface CartItem {
   name: string;
   price: number;
   quantity: number;
+  image?: string;
 }
 interface CartState {
   items: CartItem[];
@@ -59,38 +60,41 @@ const MenuDetail: React.FC = () => {
 
   return (
     <S.MenuDetailContainer>
-      <S.IMGContainer>
-        {menu.image ? (
-          <img src={menu.image} alt={menu.name} />
-        ) : (
-          <img src="/exmenu.jpg" alt="No Image" />
-        )}
-      </S.IMGContainer>
-      <S.DetailContainer>
-        <S.TopArea>
-          <button onClick={handleBackToMenu}>뒤로 가기</button>
-        </S.TopArea>
-        <S.MiddleArea>
-          <h2>{menu.name}</h2>
-          <p>{menu.description}</p>
-          <p>가격: {menu.price}</p>
-          <p>상세설명 : {menu.description}</p>
-        </S.MiddleArea>
-        <S.BottomArea>
-          <S.QuentityContainer>
-            <S.QBtn onClick={handleDecrease}>
-              <p>-</p>
-            </S.QBtn>
-            <S.QDisplay>
-              <p>{quantity}</p>
-            </S.QDisplay>
-            <S.QBtn onClick={handleIncrease}>
-              <p>+</p>
-            </S.QBtn>
-          </S.QuentityContainer>
-          <button onClick={addToCart}>장바구니에 추가</button>
-        </S.BottomArea>
-      </S.DetailContainer>
+      <S.DetailWrapper>
+        <S.IMGContainer>
+          {menu.image ? (
+            <img src={menu.image} alt={menu.name} />
+          ) : (
+            <img src="/exmenu.jpg" alt="No Image" />
+          )}
+        </S.IMGContainer>
+        <S.DetailContainer>
+          <S.TopArea>
+            <button onClick={handleBackToMenu}>뒤로 가기</button>
+          </S.TopArea>
+          <S.MiddleArea>
+            <h2>{menu.name}</h2>
+            <p>{menu.price} 원</p>
+            <p>{menu.description}</p>
+          </S.MiddleArea>
+          <S.BottomArea>
+            <S.QuentityContainer>
+              <S.QBtn onClick={handleDecrease}>
+                <p>-</p>
+              </S.QBtn>
+              <S.QDisplay>
+                <p>{quantity}</p>
+              </S.QDisplay>
+              <S.QBtn onClick={handleIncrease}>
+                <p>+</p>
+              </S.QBtn>
+            </S.QuentityContainer>
+            <S.CartButton onClick={addToCart}>
+              <p>장바구니에 추가</p>
+            </S.CartButton>
+          </S.BottomArea>
+        </S.DetailContainer>
+      </S.DetailWrapper>
     </S.MenuDetailContainer>
   );
 };

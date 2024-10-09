@@ -144,11 +144,11 @@ export const QuantityButton = styled.button`
   height: 40px;
   border-radius: 50%;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 20px;
   margin: 0 5px;
 
   &:hover {
-    background-color: #357a40;
+    background-color: red;
   }
 `;
 
@@ -160,11 +160,11 @@ export const DeleteButton = styled.button`
   height: 40px;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 20px;
   margin-left: 10px;
 
   &:hover {
-    background-color: #357a40;
+    background-color: red;
   }
 `;
 
@@ -192,6 +192,6 @@ export const ModalButton = styled.button`
   transition: background-color 0.3s ease-in-out;
 
   &:hover {
-    background-color: #357a40;
+    background-color: red;
   }
 `;
